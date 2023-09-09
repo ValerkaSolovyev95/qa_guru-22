@@ -2,11 +2,10 @@ import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
-
-import java.io.File;
-
 import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.executeJavaScript;
+import static com.codeborne.selenide.Selenide.open;
 
 public class DemoQaTests {
     private static final String URL_DEMO_QA = "https://demoqa.com/automation-practice-form";
@@ -33,6 +32,8 @@ public class DemoQaTests {
 
     @Test
     void fieldsCheckTest() {
+        executeJavaScript("$('#fixedban').remove()");
+        executeJavaScript("$('footer').remove()");
         $("#firstName").setValue(USER_NAME);
         $("#lastName").setValue(USER_LAST_NAME);
         $("#userEmail").setValue(USER_EMAIL);
@@ -46,8 +47,7 @@ public class DemoQaTests {
                 .setValue("e")
                 .pressEnter();
         $("label[for='hobbies-checkbox-2']").click();
-        File cv = new File("src/test/resources/msk.jpg");
-        $("#uploadPicture").uploadFile(cv);
+        $("#uploadPicture").uploadFromClasspath("msk.jpg");
         $("#currentAddress").setValue(DEFAULT_ADDRESS);
         $("#state").click();
         $("#react-select-3-input")
@@ -71,4 +71,5 @@ public class DemoQaTests {
         );
         executeJavaScript("document.getElementById('closeLargeModal').click()");
     }
+
 }
