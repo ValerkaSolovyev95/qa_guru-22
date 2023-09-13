@@ -24,9 +24,10 @@ public class FindCodeJunit5 {
         $("#query-builder-test").setValue("Selenide").pressEnter();
         $x("//a[@href=\"/selenide/selenide\"]").click();
         $("#wiki-tab").click();
+        $x("//div[@id=\"wiki-pages-box\"]//button").click();
         //Проверка, что в списке страниц есть необходимая страница
-        $x("//div[@class=\"markdown-body\"]//ul").shouldHave(text("Soft assertions"));
-        $x("//li/a[@href=\"/selenide/selenide/wiki/SoftAssertions\"]").click();
+        $x("//div[@id=\"wiki-pages-box\"]").shouldHave(text("SoftAssertions"));
+        $x("//div[@id=\"wiki-pages-box\"]//a[@href=\"/selenide/selenide/wiki/SoftAssertions\"]").click();
         //Проверка, что мы перешли на необходимую страницу
         $("body").shouldHave(text("SoftAssertions"));
         //Проверка необходимого примера текста
