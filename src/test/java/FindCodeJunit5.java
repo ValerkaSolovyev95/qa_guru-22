@@ -1,16 +1,20 @@
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.DragAndDropOptions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$x;
-import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selectors.withText;
+import static com.codeborne.selenide.Selenide.*;
 
 
 public class FindCodeJunit5 {
 
     public static final String HTTPS_GITHUB_COM = "https://github.com/";
+    public static final String HTTPS_THE_INTERNET_HEROKUAPP_COM_DRAG_AND_DROP = "https://the-internet.herokuapp.com/drag_and_drop";
 
     @BeforeEach
     void setUp() {
@@ -65,5 +69,21 @@ public class FindCodeJunit5 {
                         """
                 )
         );
+    }
+
+    @Test
+    void pageContainsTitleTest() {
+        open(HTTPS_GITHUB_COM);
+        $(withText("Solutions")).hover();
+        $x("//ul[@class=\"list-style-none f5\"]//a[@href=\"/enterprise\"]").click();
+        $("body").shouldHave(text("Build like the best"), visible);
+    }
+
+    @Test
+    void dragAndDropTest() {
+        open(HTTPS_THE_INTERNET_HEROKUAPP_COM_DRAG_AND_DROP);
+        $("#column-a").dragAndDrop(DragAndDropOptions.to($("#column-b")));
+        $("#column-a").shouldHave(text("B"));
+        $("#column-b").shouldHave(text("A"));
     }
 }
