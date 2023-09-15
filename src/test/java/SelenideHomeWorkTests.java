@@ -9,7 +9,7 @@ import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.*;
 
 
-public class SelenideHomeWork5 {
+public class SelenideHomeWorkTests {
 
     public static final String HTTPS_GITHUB_COM = "https://github.com/";
     public static final String HTTPS_THE_INTERNET_HEROKUAPP_COM_DRAG_AND_DROP = "https://the-internet.herokuapp.com/drag_and_drop";
