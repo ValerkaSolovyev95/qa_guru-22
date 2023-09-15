@@ -1,9 +1,7 @@
-import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.DragAndDropOptions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
@@ -11,7 +9,7 @@ import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.*;
 
 
-public class FindCodeJunit5 {
+public class SelenideHomeWork5 {
 
     public static final String HTTPS_GITHUB_COM = "https://github.com/";
     public static final String HTTPS_THE_INTERNET_HEROKUAPP_COM_DRAG_AND_DROP = "https://the-internet.herokuapp.com/drag_and_drop";
@@ -22,7 +20,7 @@ public class FindCodeJunit5 {
     }
 
     @Test
-    void shouldBeExampleCodeJunit5() {
+    void shouldBeExampleCodeJunit5Test() {
         open(HTTPS_GITHUB_COM);
         $x("//span[@data-target = 'qbsearch-input.inputButtonText']").click();
         $("#query-builder-test").setValue("Selenide").pressEnter();
