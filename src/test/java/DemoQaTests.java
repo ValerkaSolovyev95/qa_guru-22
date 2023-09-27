@@ -64,7 +64,8 @@ public class DemoQaTests extends BaseTest{
                 .setLastName(USER_LAST_NAME)
                 .setEmail(USER_EMAIL)
                 .selectGender(DEFAULT_GENDER)
-                .setPhone(USER_PHONE);
+                .setPhone(USER_PHONE)
+                .submitButtonClick();
         assertTitle(TITLE_TEXT);
     }
 
