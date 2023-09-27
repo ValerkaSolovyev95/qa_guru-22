@@ -1,11 +1,8 @@
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.executeJavaScript;
-import static com.codeborne.selenide.Selenide.open;
+import pages.StudentsRegistrationFormPage;
+
 
 public class DemoQaTests {
     private static final String URL_DEMO_QA = "https://demoqa.com/automation-practice-form";
@@ -22,54 +19,58 @@ public class DemoQaTests {
     public static final String DEFAULT_STATE = "NCR";
     public static final String DEFAULT_CITY = "Delhi";
     public static final String TITLE_TEXT = "Thanks for submitting the form";
+    private static final String DEFAULT_DAY = "27";
+    public static final String SUBJECT_FIRST_LATTER = "e";
+    public static final String FILE_NAME = "msk.jpg";
+    StudentsRegistrationFormPage studentsRegistrationFormPage = new StudentsRegistrationFormPage();
 
     @BeforeEach
     void setUp() {
         Configuration.holdBrowserOpen = false;
         Configuration.pageLoadStrategy = "eager";
-        open(URL_DEMO_QA);
     }
 
     @Test
     void fieldsCheckTest() {
-        executeJavaScript("$('#fixedban').remove()");
-        executeJavaScript("$('footer').remove()");
-        $("#firstName").setValue(USER_NAME);
-        $("#lastName").setValue(USER_LAST_NAME);
-        $("#userEmail").setValue(USER_EMAIL);
-        $(By.xpath("//*[contains(text(),'Male')]")).click();
-        $("#userNumber").setValue(USER_PHONE);
-        $("#dateOfBirthInput").click();
-        $(".react-datepicker__month-select").selectOption(DEFAULT_MONTH);
-        $(".react-datepicker__year-select").selectOption(DEFAULT_YEAR);
-        $(".react-datepicker__day--027").click();
-        $("#subjectsInput")
-                .setValue("e")
-                .pressEnter();
-        $("label[for='hobbies-checkbox-2']").click();
-        $("#uploadPicture").uploadFromClasspath("msk.jpg");
-        $("#currentAddress").setValue(DEFAULT_ADDRESS);
-        $("#state").click();
-        $("#react-select-3-input")
-                .setValue(DEFAULT_STATE)
-                .pressEnter();
-        $("#city").click();
-        $("#react-select-4-input")
-                .setValue(DEFAULT_CITY)
-                .pressEnter();
-        executeJavaScript("document.getElementById('submit').click()");
-        $("#example-modal-sizes-title-lg").shouldHave(text(TITLE_TEXT));
-        $(".table-responsive").shouldHave(
-                text(String.format("%s %s", USER_NAME, USER_LAST_NAME)),
-                text(USER_EMAIL),
-                text(DEFAULT_SEX),
-                text(USER_PHONE),
-                text(DEFAULT_SUBJECT),
-                text(DEFAULT_PICTURE),
-                text(DEFAULT_ADDRESS),
-                text(String.format("%s %S", DEFAULT_STATE, DEFAULT_CITY))
-        );
-        executeJavaScript("document.getElementById('closeLargeModal').click()");
+        studentsRegistrationFormPage.openPage(URL_DEMO_QA)
+                .setFirstName(USER_NAME)
+                .setLastName(USER_LAST_NAME)
+                .setEmail(USER_EMAIL)
+                .choiceGender()
+                .setPhone(USER_PHONE)
+                .setCalendar(DEFAULT_MONTH, DEFAULT_YEAR, DEFAULT_DAY)
+                .choiceSubject(SUBJECT_FIRST_LATTER)
+                .choiceHobby()
+                .uploadPhoto(FILE_NAME)
+                .setCurrentAddress(DEFAULT_ADDRESS)
+                .setState(DEFAULT_STATE)
+                .setCity(DEFAULT_CITY)
+                .submitButtonClick()
+                .assertionsForm(
+                        TITLE_TEXT,
+                        USER_NAME,
+                        USER_LAST_NAME,
+                        USER_EMAIL,
+                        DEFAULT_SEX,
+                        USER_PHONE,
+                        DEFAULT_SUBJECT,
+                        DEFAULT_PICTURE,
+                        DEFAULT_ADDRESS,
+                        DEFAULT_STATE,
+                        DEFAULT_CITY
+                        )
+                .closeButtonClick();
     }
 
+    @Test
+    void checkMandatoryFields() {
+        studentsRegistrationFormPage.openPage(URL_DEMO_QA)
+                .setFirstName(USER_NAME)
+                .setLastName(USER_LAST_NAME)
+                .setEmail(USER_EMAIL)
+                .choiceGender()
+                .setPhone(USER_PHONE)
+                .submitButtonClick()
+                .assertionTitleForm(TITLE_TEXT);
+    }
 }
