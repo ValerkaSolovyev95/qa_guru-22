@@ -6,7 +6,6 @@ import pages.StudentsRegistrationFormPage;
 import static pages.components.FillingForm.assertTitle;
 import static pages.components.FillingForm.verifyResult;
 
-
 public class DemoQaTests extends BaseTest{
     private static final String URL_DEMO_QA = "automation-practice-form";
     public static final String USER_NAME = "Валерий";

@@ -10,7 +10,6 @@ import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.executeJavaScript;
 import static com.codeborne.selenide.Selenide.open;
 
-
 public class StudentsRegistrationFormPage extends BasePage {
     public static final String SPORT = "sport";
     public static final String READING = "reading";
