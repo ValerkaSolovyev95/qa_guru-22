@@ -1,9 +1,10 @@
 package pages;
 
 import com.codeborne.selenide.SelenideElement;
-import components.Calendar;
-import components.FillingForm;
+import pages.components.Calendar;
+import pages.components.FillingForm;
 
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$x;
 import static com.codeborne.selenide.Selenide.executeJavaScript;
@@ -11,20 +12,25 @@ import static com.codeborne.selenide.Selenide.open;
 
 
 public class StudentsRegistrationFormPage extends BasePage {
+    public static final String SPORT = "sport";
+    public static final String READING = "reading";
+    public static final String MUSIC = "music";
     private SelenideElement firstNameInput = $("#firstName"),
             lastNameInput = $("#lastName"),
             emailInput = $("#userEmail"),
-            gender = $x("//*[contains(text(),'Male')]"),
             phoneInput = $("#userNumber"),
             dateOfBirth = $("#dateOfBirthInput"),
             subjectInput = $("#subjectsInput"),
-            hobbiesCheckBox = $("label[for='hobbies-checkbox-2']"),
             uploadPicture = $("#uploadPicture"),
             currentAddress = $("#currentAddress"),
             stateField = $("#state"),
-            stateFieldSelect = $("#react-select-3-input"),
+            stateCityWrapper = $("#stateCity-wrapper"),
             cityField = $("#city"),
-            cityFieldSelect = $("#react-select-4-input");
+            submitButton = $("#submit"),
+            sportsCheckBox = $("label[for='hobbies-checkbox-1']"),
+            readingCheckBox = $("label[for='hobbies-checkbox-2']"),
+            musicCheckBox = $("label[for='hobbies-checkbox-3']");
+
     private Calendar calendar = new Calendar();
     private FillingForm fillingForm = new FillingForm();
 
@@ -49,8 +55,8 @@ public class StudentsRegistrationFormPage extends BasePage {
         return this;
     }
 
-    public StudentsRegistrationFormPage choiceGender() {
-        gender.click();
+    public StudentsRegistrationFormPage selectGender(String gender) {
+        $x(String.format("//*[contains(text(),'%s')]", gender)).click();
         return this;
     }
 
@@ -65,14 +71,9 @@ public class StudentsRegistrationFormPage extends BasePage {
         return this;
     }
 
-    public StudentsRegistrationFormPage choiceSubject(String subjectFirstLatter) {
+    public StudentsRegistrationFormPage selectSubject(String subjectFirstLatter) {
         subjectInput.setValue(subjectFirstLatter)
                 .pressEnter();
-        return this;
-    }
-
-    public StudentsRegistrationFormPage choiceHobby() {
-        hobbiesCheckBox.click();
         return this;
     }
 
@@ -88,22 +89,18 @@ public class StudentsRegistrationFormPage extends BasePage {
 
     public StudentsRegistrationFormPage setState(String state) {
         stateField.click();
-        stateFieldSelect
-                .setValue(state)
-                .pressEnter();
+        stateCityWrapper.$(byText(state)).click();
         return this;
     }
 
     public StudentsRegistrationFormPage setCity(String city) {
         cityField.click();
-        cityFieldSelect
-                .setValue(city)
-                .pressEnter();
+        stateCityWrapper.$(byText(city)).click();
         return this;
     }
 
     public StudentsRegistrationFormPage submitButtonClick() {
-        executeJavaScript("document.getElementById('submit').click()");
+        submitButton.click();
         return this;
     }
 
@@ -112,38 +109,18 @@ public class StudentsRegistrationFormPage extends BasePage {
         return this;
     }
 
-    public StudentsRegistrationFormPage assertionsForm(
-            String title,
-            String userName,
-            String userLastName,
-            String userEmail,
-            String userSex,
-            String userPhone,
-            String userSubject,
-            String userPhoto,
-            String userAddress,
-            String userState,
-            String userCity
-    ) {
-        FillingForm.assertTitle(title);
-        FillingForm.assertTable(
-                userName,
-                userLastName,
-                userEmail,
-                userSex,
-                userPhone,
-                userSubject,
-                userPhoto,
-                userAddress,
-                userState,
-                userCity
-        );
+    public StudentsRegistrationFormPage selectHobby(String hobby) {
+        switch (hobby.toLowerCase()) {
+            case SPORT:
+                sportsCheckBox.click();
+                return this;
+            case READING:
+                readingCheckBox.click();
+                return this;
+            case MUSIC:
+                musicCheckBox.click();
+                return this;
+        }
         return this;
     }
-
-    public StudentsRegistrationFormPage assertionTitleForm(String titleText) {
-        FillingForm.assertTitle(titleText);
-        return this;
-    }
-
 }

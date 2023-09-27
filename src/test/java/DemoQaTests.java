@@ -1,11 +1,14 @@
-import com.codeborne.selenide.Configuration;
-import org.junit.jupiter.api.BeforeEach;
+import com.codeborne.selenide.Selenide;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import pages.StudentsRegistrationFormPage;
 
+import static pages.components.FillingForm.assertTitle;
+import static pages.components.FillingForm.verifyResult;
 
-public class DemoQaTests {
-    private static final String URL_DEMO_QA = "https://demoqa.com/automation-practice-form";
+
+public class DemoQaTests extends BaseTest{
+    private static final String URL_DEMO_QA = "automation-practice-form";
     public static final String USER_NAME = "Валерий";
     public static final String USER_LAST_NAME = "Соловьев";
     public static final String USER_EMAIL = "val241423@gmail.com";
@@ -22,13 +25,9 @@ public class DemoQaTests {
     private static final String DEFAULT_DAY = "27";
     public static final String SUBJECT_FIRST_LATTER = "e";
     public static final String FILE_NAME = "msk.jpg";
+    public static final String DEFAULT_GENDER = "Male";
+    public static final String DEFAULT_HOBBY = "sports";
     StudentsRegistrationFormPage studentsRegistrationFormPage = new StudentsRegistrationFormPage();
-
-    @BeforeEach
-    void setUp() {
-        Configuration.holdBrowserOpen = false;
-        Configuration.pageLoadStrategy = "eager";
-    }
 
     @Test
     void fieldsCheckTest() {
@@ -36,30 +35,26 @@ public class DemoQaTests {
                 .setFirstName(USER_NAME)
                 .setLastName(USER_LAST_NAME)
                 .setEmail(USER_EMAIL)
-                .choiceGender()
+                .selectGender(DEFAULT_GENDER)
                 .setPhone(USER_PHONE)
                 .setCalendar(DEFAULT_MONTH, DEFAULT_YEAR, DEFAULT_DAY)
-                .choiceSubject(SUBJECT_FIRST_LATTER)
-                .choiceHobby()
+                .selectSubject(SUBJECT_FIRST_LATTER)
+                .selectHobby(DEFAULT_HOBBY)
                 .uploadPhoto(FILE_NAME)
                 .setCurrentAddress(DEFAULT_ADDRESS)
                 .setState(DEFAULT_STATE)
                 .setCity(DEFAULT_CITY)
-                .submitButtonClick()
-                .assertionsForm(
-                        TITLE_TEXT,
-                        USER_NAME,
-                        USER_LAST_NAME,
-                        USER_EMAIL,
-                        DEFAULT_SEX,
-                        USER_PHONE,
-                        DEFAULT_SUBJECT,
-                        DEFAULT_PICTURE,
-                        DEFAULT_ADDRESS,
-                        DEFAULT_STATE,
-                        DEFAULT_CITY
-                        )
-                .closeButtonClick();
+                .submitButtonClick();
+        verifyResult(USER_NAME);
+        verifyResult(USER_LAST_NAME);
+        verifyResult(USER_EMAIL);
+        verifyResult(DEFAULT_SEX);
+        verifyResult(USER_PHONE);
+        verifyResult(DEFAULT_SUBJECT);
+        verifyResult(DEFAULT_PICTURE);
+        verifyResult(DEFAULT_ADDRESS);
+        verifyResult(DEFAULT_STATE);
+        verifyResult(DEFAULT_CITY);
     }
 
     @Test
@@ -68,9 +63,13 @@ public class DemoQaTests {
                 .setFirstName(USER_NAME)
                 .setLastName(USER_LAST_NAME)
                 .setEmail(USER_EMAIL)
-                .choiceGender()
-                .setPhone(USER_PHONE)
-                .submitButtonClick()
-                .assertionTitleForm(TITLE_TEXT);
+                .selectGender(DEFAULT_GENDER)
+                .setPhone(USER_PHONE);
+        assertTitle(TITLE_TEXT);
+    }
+
+    @AfterEach
+    void afterEach() {
+        Selenide.closeWebDriver();
     }
 }
