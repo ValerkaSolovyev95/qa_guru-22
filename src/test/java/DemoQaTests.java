@@ -13,7 +13,6 @@ public class DemoQaTests extends BaseTest{
     public static final String DEFAULT_MONTH = "November";
     public static final String DEFAULT_YEAR = "1995";
     public static final String DEFAULT_ADDRESS = "Красная площадь, 1";
-    public static final String DEFAULT_SEX = "Male";
     public static final String DEFAULT_SUBJECT = "English";
     public static final String DEFAULT_PICTURE = "msk.jpg";
     public static final String DEFAULT_STATE = "NCR";
@@ -45,7 +44,7 @@ public class DemoQaTests extends BaseTest{
         verifyResult(USER_NAME);
         verifyResult(USER_LAST_NAME);
         verifyResult(USER_EMAIL);
-        verifyResult(DEFAULT_SEX);
+        verifyResult(DEFAULT_GENDER);
         verifyResult(USER_PHONE);
         verifyResult(DEFAULT_SUBJECT);
         verifyResult(DEFAULT_PICTURE);
