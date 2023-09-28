@@ -1,5 +1,3 @@
-import com.codeborne.selenide.Selenide;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import pages.StudentsRegistrationFormPage;
 
@@ -25,7 +23,7 @@ public class DemoQaTests extends BaseTest{
     public static final String SUBJECT_FIRST_LATTER = "e";
     public static final String FILE_NAME = "msk.jpg";
     public static final String DEFAULT_GENDER = "Male";
-    public static final String DEFAULT_HOBBY = "sports";
+    public static final String DEFAULT_HOBBY = "Sports";
     StudentsRegistrationFormPage studentsRegistrationFormPage = new StudentsRegistrationFormPage();
 
     @Test
@@ -66,10 +64,5 @@ public class DemoQaTests extends BaseTest{
                 .setPhone(USER_PHONE)
                 .submitButtonClick();
         assertTitle(TITLE_TEXT);
-    }
-
-    @AfterEach
-    void afterEach() {
-        Selenide.closeWebDriver();
     }
 }

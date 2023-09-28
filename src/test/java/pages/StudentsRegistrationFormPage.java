@@ -11,9 +11,6 @@ import static com.codeborne.selenide.Selenide.executeJavaScript;
 import static com.codeborne.selenide.Selenide.open;
 
 public class StudentsRegistrationFormPage extends BasePage {
-    public static final String SPORT = "sport";
-    public static final String READING = "reading";
-    public static final String MUSIC = "music";
     private SelenideElement firstNameInput = $("#firstName"),
             lastNameInput = $("#lastName"),
             emailInput = $("#userEmail"),
@@ -26,9 +23,7 @@ public class StudentsRegistrationFormPage extends BasePage {
             stateCityWrapper = $("#stateCity-wrapper"),
             cityField = $("#city"),
             submitButton = $("#submit"),
-            sportsCheckBox = $("label[for='hobbies-checkbox-1']"),
-            readingCheckBox = $("label[for='hobbies-checkbox-2']"),
-            musicCheckBox = $("label[for='hobbies-checkbox-3']");
+            hobbiesWrapper = $("#hobbiesWrapper");
 
     private Calendar calendar = new Calendar();
     private FillingForm fillingForm = new FillingForm();
@@ -109,17 +104,7 @@ public class StudentsRegistrationFormPage extends BasePage {
     }
 
     public StudentsRegistrationFormPage selectHobby(String hobby) {
-        switch (hobby.toLowerCase()) {
-            case SPORT:
-                sportsCheckBox.click();
-                return this;
-            case READING:
-                readingCheckBox.click();
-                return this;
-            case MUSIC:
-                musicCheckBox.click();
-                return this;
-        }
+        hobbiesWrapper.$(byText(hobby)).click();
         return this;
     }
 }
