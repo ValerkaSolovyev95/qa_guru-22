@@ -1,4 +1,4 @@
-package pages;
+package demo_qa.pages;
 
 import static com.codeborne.selenide.Selenide.executeJavaScript;
 

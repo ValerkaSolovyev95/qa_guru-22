@@ -1,8 +1,8 @@
-package pages;
+package demo_qa.pages;
 
 import com.codeborne.selenide.SelenideElement;
-import pages.components.Calendar;
-import pages.components.FillingForm;
+import demo_qa.pages.components.CalendarComponent;
+import demo_qa.pages.components.FillingFormComponent;
 
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
@@ -25,8 +25,8 @@ public class StudentsRegistrationFormPage extends BasePage {
             submitButton = $("#submit"),
             hobbiesWrapper = $("#hobbiesWrapper");
 
-    private Calendar calendar = new Calendar();
-    private FillingForm fillingForm = new FillingForm();
+    private CalendarComponent calendarComponent = new CalendarComponent();
+    private FillingFormComponent fillingFormComponent = new FillingFormComponent();
 
     public StudentsRegistrationFormPage openPage(String url) {
         open(url);
@@ -61,7 +61,7 @@ public class StudentsRegistrationFormPage extends BasePage {
 
     public StudentsRegistrationFormPage setCalendar(String month, String year, String day) {
         dateOfBirth.click();
-        calendar.setupCalendar(month, year, day);
+        calendarComponent.setupCalendar(month, year, day);
         return this;
     }
 

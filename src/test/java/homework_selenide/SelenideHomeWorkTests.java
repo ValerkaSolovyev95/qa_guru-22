@@ -1,3 +1,5 @@
+package homework_selenide;
+
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.DragAndDropOptions;
 import org.junit.jupiter.api.BeforeEach;

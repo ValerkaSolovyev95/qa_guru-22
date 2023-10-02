@@ -1,4 +1,6 @@
-import utils.RandomUtils;
+package demo_qa;
+
+import demo_qa.utils.RandomUtils;
 
 public class UserTestData {
     public RandomUtils userData = new RandomUtils();

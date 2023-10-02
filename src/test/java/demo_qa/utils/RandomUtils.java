@@ -1,16 +1,9 @@
-package utils;
+package demo_qa.utils;
 
 import com.github.javafaker.Faker;
 
-import java.util.Locale;
-import java.util.concurrent.ThreadLocalRandom;
-
 public class RandomUtils {
     public Faker faker = new Faker();
-
-    public static int getRandomInt(int min, int max) {
-        return ThreadLocalRandom.current().nextInt(min, max + 1);
-    }
 
     public String getGender() {
         String[] array = {"Male", "Female", "Other"};
@@ -33,7 +26,7 @@ public class RandomUtils {
     }
 
     public String getYear(int fromYear, int toYear) {
-        return String.valueOf(getRandomInt(fromYear, toYear));
+        return String.valueOf(faker.number().numberBetween(fromYear, toYear));
     }
 
     public String getState() {
@@ -64,7 +57,7 @@ public class RandomUtils {
     }
 
     public String getDay() {
-        int dateDay = getRandomInt(1, 28);
+        int dateDay = faker.number().numberBetween(1, 28);
         return String.valueOf(dateDay).length() < 2 ? String.format("0%s", dateDay) : String.format("%s", dateDay);
     }
 }

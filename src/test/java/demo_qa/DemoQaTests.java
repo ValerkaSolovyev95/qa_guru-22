@@ -1,8 +1,10 @@
-import org.junit.jupiter.api.Test;
-import pages.StudentsRegistrationFormPage;
+package demo_qa;
 
-import static pages.components.FillingForm.assertTitle;
-import static pages.components.FillingForm.verifyResult;
+import org.junit.jupiter.api.Test;
+import demo_qa.pages.StudentsRegistrationFormPage;
+
+import static demo_qa.pages.components.FillingFormComponent.assertTitle;
+import static demo_qa.pages.components.FillingFormComponent.verifyResult;
 
 class DemoQaTests extends BaseTest{
     StudentsRegistrationFormPage studentsRegistrationFormPage = new StudentsRegistrationFormPage();
