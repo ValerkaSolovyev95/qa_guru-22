@@ -2,8 +2,12 @@ package demo_qa.utils;
 
 import com.github.javafaker.Faker;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class RandomUtils {
-    public Faker faker = new Faker();
+    public static Faker faker = new Faker();
 
     public String getGender() {
         String[] array = {"Male", "Female", "Other"};
@@ -34,26 +38,17 @@ public class RandomUtils {
         return faker.options().option(array);
     }
 
-    public String getCity(String state) {
-        return switch (state) {
-            case ("NCR") -> {
-                String[] arrayNCR = {"Delhi", "Gurgaon", "Noida"};
-                yield faker.options().option(arrayNCR);
-            }
-            case ("Uttar Pradesh") -> {
-                String[] arrayUttar = {"Agra", "Lucknow", "Merrut"};
-                yield faker.options().option(arrayUttar);
-            }
-            case ("Haryana") -> {
-                String[] arrayHaryana = {"Karnal", "Panipat"};
-                yield faker.options().option(arrayHaryana);
-            }
-            case ("Rajasthan") -> {
-                String[] arrayRajasthan = {"Jaipur", "Jaiselmer"};
-                yield faker.options().option(arrayRajasthan);
-            }
-            default -> "No found";
-        };
+    public static String getCity(String state) {
+        String[] arrayNCR = {"Delhi", "Gurgaon", "Noida"};
+        String[] arrayUttar = {"Agra", "Lucknow", "Merrut"};
+        String[] arrayHaryana = {"Karnal", "Panipat"};
+        String[] arrayRajasthan = {"Jaipur", "Jaiselmer"};
+        Map<String, String[]> cityMap = new HashMap<>();
+        cityMap.put("NCR", arrayNCR);
+        cityMap.put("Uttar Pradesh", arrayUttar);
+        cityMap.put("Haryana", arrayHaryana);
+        cityMap.put("Rajasthan", arrayRajasthan);
+        return faker.options().option(cityMap.get(state));
     }
 
     public String getDay() {
