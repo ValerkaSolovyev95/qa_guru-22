@@ -18,7 +18,7 @@ public class BaseTest {
     static void setUp() {
         Configuration.pageLoadStrategy = "eager";
         Configuration.baseUrl = "https://demoqa.com/";
-        Configuration.remote = System.getProperty("remote_url");
+        Configuration.remote = System.getProperty("remote_url", "https://user1:1234@selenoid.autotests.cloud/wd");
         Configuration.browserSize = System.getProperty("browser_size", "1920x1280");
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability(
