@@ -19,7 +19,7 @@ public class BaseTest {
         Configuration.pageLoadStrategy = "eager";
         Configuration.baseUrl = "https://demoqa.com/";
         Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd";
-        Configuration.browserSize = System.getProperty("browser_size", "1920x1280");
+        Configuration.browserSize = "1920x1280";
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability(
                 "selenoid:options",
