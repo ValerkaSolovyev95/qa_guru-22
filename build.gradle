@@ -18,8 +18,6 @@ allure {
 
         autoconfigureListeners.set(true)
         aspectjWeaver.set(true)
-
-        categoriesFile.set(layout.projectDirectory.file("config/allure/categories.json"))
         frameworks {
             junit5 {
                 adapterVersion.set("2.24.0")
